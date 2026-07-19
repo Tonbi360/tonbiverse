@@ -1,4 +1,4 @@
-function StoriesApp() {
+function Stories() {
   return (
     <div>
       <h1 className="text-3xl font-bold">
@@ -12,4 +12,4 @@ function StoriesApp() {
   );
 }
 
-export default StoriesApp;
+export default Stories;

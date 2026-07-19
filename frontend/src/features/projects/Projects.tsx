@@ -1,4 +1,4 @@
-function ProjectsApp() {
+function Projects() {
   return (
     <div>
       <h1 className="text-3xl font-bold">
@@ -12,4 +12,4 @@ function ProjectsApp() {
   );
 }
 
-export default ProjectsApp;
+export default Projects;

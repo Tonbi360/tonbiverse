@@ -1,4 +1,4 @@
-function GalleryApp() {
+function Gallery() {
   return (
     <div>
       <h1 className="text-3xl font-bold">
@@ -12,4 +12,4 @@ function GalleryApp() {
   );
 }
 
-export default GalleryApp;
+export default Gallery;

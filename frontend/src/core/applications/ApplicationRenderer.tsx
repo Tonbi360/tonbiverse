@@ -1,6 +1,6 @@
-import GalleryApp from "../../features/gallery/GalleryApp";
-import ProjectsApp from "../../features/projects/ProjectsApp";
-import StoriesApp from "../../features/stories/StoriesApp";
+import GalleryApp from "../../features/gallery/Gallery";
+import ProjectsApp from "../../features/projects/Projects";
+import StoriesApp from "../../features/stories/Stories";
 
 type Props = {
   id: string;
