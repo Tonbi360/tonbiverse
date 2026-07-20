@@ -1,81 +1,55 @@
 import type { Application } from "./types";
+import Gallery from "./gallery/Gallery";
+import Projects from "./projects/Projects";
+import Stories from "./stories/Stories";
 
-export const applications: Application[] = [
-  {
-    id: "projects",
+export const applications: Record<string, Application> = {
 
-    name: "Projects",
+    gallery:{
+        id:"gallery",
+        name:"Gallery",
+        icon:"🖼️",
+    desktop:true,
+    taskbar:true,
 
-    description: "My software projects",
+        defaultSize:{
+            width:500,
+            height:400
+        },
 
-    icon: "📁",
-
-    category: "projects",
-
-    desktop: true,
-
-    taskbar: true,
-
-    searchable: true,
-
-    window: {
-      width: 1100,
-      height: 700,
-      minWidth: 800,
-      minHeight: 500,
-      resizable: true,
+        component:Gallery
     },
-  },
 
-  {
-    id: "gallery",
 
-    name: "Gallery",
+    projects:{
+        id:"projects",
+        name:"Projects",
+        icon:"📁",
+        desktop:true,
+        taskbar:true,
 
-    description: "Images and artwork",
+        defaultSize:{
+            width:700,
+            height:500
+        },
 
-    icon: "🖼️",
-
-    category: "media",
-
-    desktop: true,
-
-    taskbar: true,
-
-    searchable: true,
-
-    window: {
-      width: 1200,
-      height: 750,
-      minWidth: 900,
-      minHeight: 600,
-      resizable: true,
+        component:Projects
     },
-  },
 
-  {
-    id: "stories",
 
-    name: "Stories",
+    stories:{
+        id:"stories",
+        name:"Stories",
+        icon:"📖",
+        desktop:true,
+        taskbar:true,
 
-    description: "Novels and writing",
+        defaultSize:{
+            width:600,
+            height:500
+        },
 
-    icon: "📖",
+        component:Stories
+    }
 
-    category: "writing",
-
-    desktop: true,
-
-    taskbar: false,
-
-    searchable: true,
-
-    window: {
-      width: 900,
-      height: 700,
-      minWidth: 700,
-      minHeight: 500,
-      resizable: true,
-    },
-  },
-];
+};

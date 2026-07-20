@@ -1,20 +1,21 @@
 import { applications } from "./registry";
+import type { Application } from "./types";
 
 class ApplicationManager {
   getAll() {
-    return applications;
+    return Object.values(applications);
   }
 
   getDesktopApps() {
-    return applications.filter((app) => app.desktop);
+    return this.getAll().filter((app: Application) => app.desktop);
   }
 
   getTaskbarApps() {
-    return applications.filter((app) => app.taskbar);
+    return this.getAll().filter((app: Application) => app.taskbar);
   }
 
   getById(id: string) {
-    return applications.find((app) => app.id === id);
+    return this.getAll().find((app: Application) => app.id === id);
   }
 }
 

@@ -1,35 +1,17 @@
-export type WindowConfig = {
-  width: number;
-  height: number;
-  minWidth: number;
-  minHeight: number;
-  resizable: boolean;
+import type { ComponentType } from "react";
+
+export type Application = {
+    id: string;
+    name: string;
+    icon: string;
+
+    desktop?: boolean;
+    taskbar?: boolean;
+
+    defaultSize: {
+        width: number;
+        height: number;
+    };
+
+    component: ComponentType;
 };
-
-export type ApplicationCategory =
-  | "system"
-  | "media"
-  | "writing"
-  | "projects"
-  | "communication"
-  | "utility";
-
-export interface Application {
-  id: string;
-
-  name: string;
-
-  description: string;
-
-  icon: string;
-
-  category: ApplicationCategory;
-
-  desktop: boolean;
-
-  taskbar: boolean;
-
-  searchable: boolean;
-
-  window: WindowConfig;
-}
