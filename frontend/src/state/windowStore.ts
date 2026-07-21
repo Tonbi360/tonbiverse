@@ -28,13 +28,15 @@ export type OpenWindow = {
     zIndex: number;
 };
 
-type NewWindow = Pick<OpenWindow, "id" | "title"> &
-    Partial<Omit<OpenWindow, "id" | "title" | "zIndex" | "active">>;
+type NewWindow = Pick<OpenWindow, "id"> &
+    Partial<Omit<OpenWindow, "id" | "zIndex" | "active">>;
 
 type WindowStore = {
     windows: OpenWindow[];
 
     openWindow: (window: NewWindow) => void;
+
+    setWindowTitle: (id: string, title: string) => void;
 
     closeWindow: (id: string) => void;
 
@@ -58,6 +60,11 @@ type WindowStore = {
         id: string,
         width: number,
         height: number
+    ) => void;
+
+    snapWindow: (
+        id: string,
+        target: "left" | "right"
     ) => void;
 };
 
@@ -114,7 +121,7 @@ export const useWindowStore = create<WindowStore>((set) => ({
 
                     {
                         id: window.id,
-                        title: window.title,
+                        title: window.title ?? window.id,
                         icon: window.icon,
 
                         x: DEFAULT_WINDOW.x,
@@ -287,18 +294,70 @@ export const useWindowStore = create<WindowStore>((set) => ({
             }),
         })),
 
-    moveWindow: (id, x, y) =>
+    setWindowTitle: (id, title) =>
         set((state) => ({
             windows: state.windows.map((w) =>
-                w.id === id && !w.maximized
+                w.id === id
                     ? {
                           ...w,
-                          x,
-                          y,
+                          title,
                       }
                     : w
             ),
         })),
+
+
+    moveWindow: (id, x, y) =>
+        set((state) => {
+            const desktop =
+                typeof document !== "undefined"
+                    ? document.getElementById("desktop")
+                    : null;
+
+            return {
+                windows: state.windows.map((w) => {
+                    if (w.id !== id || w.maximized) {
+                        return w;
+                    }
+
+                    if (!desktop) {
+                        return {
+                            ...w,
+                            x,
+                            y,
+                        };
+                    }
+
+                    const TITLEBAR_HEIGHT = 40;
+                    const MIN_VISIBLE_WIDTH = 120;
+
+                    const minX =
+                        MIN_VISIBLE_WIDTH - w.width;
+
+                    const maxX =
+                        desktop.clientWidth -
+                        MIN_VISIBLE_WIDTH;
+
+                    const minY = 0;
+
+                    const maxY =
+                        desktop.clientHeight -
+                        TITLEBAR_HEIGHT;
+
+                    return {
+                        ...w,
+                        x: Math.min(
+                            maxX,
+                            Math.max(minX, x)
+                        ),
+                        y: Math.min(
+                            maxY,
+                            Math.max(minY, y)
+                        ),
+                    };
+                }),
+            };
+        }),
     resizeWindow: (id, width, height) =>
         set((state) => ({
             windows: state.windows.map((w) => {
@@ -311,4 +370,36 @@ export const useWindowStore = create<WindowStore>((set) => ({
                 };
             }),
         })),
+
+    snapWindow: (id, target) =>
+        set((state) => {
+            const desktop =
+                typeof document !== "undefined"
+                    ? document.getElementById("desktop")
+                    : null;
+
+            if (!desktop) return state;
+
+            const width = desktop.clientWidth / 2;
+            const height = desktop.clientHeight;
+
+            return {
+                windows: state.windows.map((w) => {
+                    if (w.id !== id) return w;
+
+                    return {
+                        ...w,
+                        previousX: w.x,
+                        previousY: w.y,
+                        previousWidth: w.width,
+                        previousHeight: w.height,
+                        x: target === "left" ? 0 : width,
+                        y: 0,
+                        width,
+                        height,
+                        maximized: false,
+                    };
+                }),
+            };
+        }),
 }));

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 
 import { useInteractionStore } from "../../state/interactionStore";
 import { useWindowStore } from "../../state/windowStore";
+import { useSnapStore } from "../../state/snapStore";
 
 function WindowInteractionManager() {
     const moveWindow = useWindowStore(
@@ -14,6 +15,10 @@ function WindowInteractionManager() {
 
     const endInteraction = useInteractionStore(
         (state) => state.endInteraction
+    );
+
+    const snapWindow = useWindowStore(
+        (state) => state.snapWindow
     );
 
     useEffect(() => {
@@ -45,13 +50,34 @@ function WindowInteractionManager() {
                 event.clientY - interaction.startMouseY;
 
             switch (interaction.mode) {
-                case "dragging":
-                    moveWindow(
-                        win.id,
-                        interaction.startWindowX + dx,
-                        interaction.startWindowY + dy
-                    );
+                case "dragging": {
+                    const clampedX = interaction.startWindowX + dx;
+                    const clampedY = interaction.startWindowY + dy;
+
+                    moveWindow(win.id, clampedX, clampedY);
+
+                    const SNAP_DISTANCE = 30;
+                    const desktop = document.getElementById("desktop");
+
+                    if (!desktop) return;
+
+                    const snapStore = useSnapStore.getState();
+
+                    if (clampedY <= SNAP_DISTANCE) {
+                        snapStore.setTarget("top");
+                    } else if (clampedX <= SNAP_DISTANCE) {
+                        snapStore.setTarget("left");
+                    } else if (
+                        clampedX + win.width >=
+                        desktop.clientWidth - SNAP_DISTANCE
+                    ) {
+                        snapStore.setTarget("right");
+                    } else {
+                        snapStore.setTarget("none");
+                    }
+
                     break;
+                }
 
                 case "resizing": {
                     let newX = interaction.startWindowX;
@@ -67,8 +93,16 @@ function WindowInteractionManager() {
                     }
 
                     if (edge.includes("left")) {
-                        newWidth = interaction.startWidth - dx;
-                        newX = interaction.startWindowX + dx;
+                        const desiredWidth =
+                            interaction.startWidth - dx;
+
+                        newWidth = Math.max(
+                            win.minWidth,
+                            desiredWidth
+                        );
+                        newX =
+                            interaction.startWindowX +
+                            (interaction.startWidth - newWidth);
                     }
 
                     if (edge.includes("bottom")) {
@@ -76,8 +110,16 @@ function WindowInteractionManager() {
                     }
 
                     if (edge.includes("top")) {
-                        newHeight = interaction.startHeight - dy;
-                        newY = interaction.startWindowY + dy;
+                        const desiredHeight =
+                            interaction.startHeight - dy;
+
+                        newHeight = Math.max(
+                            win.minHeight,
+                            desiredHeight
+                        );
+                        newY =
+                            interaction.startWindowY +
+                            (interaction.startHeight - newHeight);
                     }
 
                     moveWindow(win.id, newX, newY);
@@ -89,6 +131,22 @@ function WindowInteractionManager() {
         }
 
         function handleMouseUp() {
+            const interaction = useInteractionStore.getState();
+            const target = useSnapStore.getState().target;
+
+            if (interaction.windowId) {
+                if (target === "left") {
+                    snapWindow(interaction.windowId, "left");
+                } else if (target === "right") {
+                    snapWindow(interaction.windowId, "right");
+                } else if (target === "top") {
+                    useWindowStore
+                        .getState()
+                        .toggleMaximize(interaction.windowId);
+                }
+            }
+
+            useSnapStore.getState().setTarget("none");
             endInteraction();
         }
 
@@ -113,7 +171,7 @@ function WindowInteractionManager() {
                 handleMouseUp
             );
         };
-    }, [endInteraction, moveWindow, resizeWindow]);
+    }, [endInteraction, moveWindow, resizeWindow, snapWindow]);
 
     return null;
 }

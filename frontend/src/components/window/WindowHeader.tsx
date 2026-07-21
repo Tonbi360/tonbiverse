@@ -13,6 +13,8 @@ type Props = {
     onMouseDown: (
         event: ReactMouseEvent<HTMLDivElement>
     ) => void;
+
+    onDoubleClick: () => void;
 };
 
 function WindowHeader({
@@ -21,11 +23,12 @@ function WindowHeader({
     onMinimize,
     onMaximize,
     onMouseDown,
+    onDoubleClick,
 }: Props) {
     return (
         <header
             onMouseDown={onMouseDown}
-            onDoubleClick={onMaximize}
+            onDoubleClick={onDoubleClick}
             className="
                 flex
                 h-10

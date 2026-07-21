@@ -1,0 +1,30 @@
+import type { SettingsPage } from "../../../features/settings/types";
+
+export const SETTINGS_SECTIONS: Array<{
+    id: SettingsPage;
+    title: string;
+    icon: string;
+}> = [
+    {
+        id: "appearance",
+        title: "Appearance",
+        icon: "🎨",
+    },
+    {
+        id: "desktop",
+        title: "Desktop",
+        icon: "🖥️",
+    },
+    {
+        id: "system",
+        title: "System",
+        icon: "⚙️",
+    },
+    {
+        id: "about",
+        title: "About",
+        icon: "ℹ️",
+    },
+];
+
+

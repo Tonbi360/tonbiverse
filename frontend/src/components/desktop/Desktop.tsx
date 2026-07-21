@@ -1,15 +1,16 @@
-import DesktopIcons from "./DesktopIcons";
-import Window from "../window/Window";
-import { useWindowStore } from "../../state/windowStore";
+import DesktopIconLayer from "./DesktopIconLayer";
 import { useDesktopStore } from "../../state/desktopStore";
-import ApplicationRenderer from "../../core/applications/ApplicationRenderer";
-import WindowInteractionManager from "../window/WindowInteractionManager";
-import DockManager from "../dock/DockManager";
-import ContextMenu from "../context/ContextMenu";
 import { useContextMenuStore } from "../../state/contextMenuStore";
+import DesktopInteractionManager from "./DesktopInteractionManager";
+import DesktopWallpaper from "./DesktopWallpaper";
+import OverlayLayer from "./OverlayLayer";
+import DesktopSelectionLayer from "./DesktopSelectionLayer";
+import WindowLayer from "./WindowLayer";
+import DockLayer from "./DockLayer";
+import DesktopDragPreview from "./DesktopDragPreview";
+
 
 function Desktop() {
-    const windows = useWindowStore((state) => state.windows);
     const clearSelection = useDesktopStore(
         (state) => state.clearSelection
     );
@@ -29,21 +30,21 @@ function Desktop() {
                 );
             }}
         >
-            <ContextMenu />
+            <DesktopWallpaper />
 
-            <DesktopIcons />
+            <DesktopInteractionManager />
 
-            <WindowInteractionManager />
+            <DesktopDragPreview />
 
-            {[...windows]
-                .sort((a, b) => a.zIndex - b.zIndex)
-                .map((window) => (
-                    <Window key={window.id} window={window}>
-                        <ApplicationRenderer id={window.id} />
-                    </Window>
-                ))}
+            <OverlayLayer />
 
-            <DockManager />
+            <DesktopSelectionLayer />
+
+            <DesktopIconLayer />
+
+            <WindowLayer />
+
+            <DockLayer />
         </section>
     );
 }

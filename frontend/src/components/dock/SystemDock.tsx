@@ -1,21 +1,50 @@
-import Clock from "./Clock";
+import SystemRail from "./system/SystemRail";
+import SystemRailPanel from "./system/SystemRailPanel";
+import ClockWidget from "./system/ClockWidget";
+import SystemDivider from "./system/SystemDivider";
+import NotificationButton from "./system/NotificationButton";
+import WifiButton from "./system/WifiButton";
+import VolumeButton from "./system/VolumeButton";
+import BatteryButton from "./system/BatteryButton";
+import QuickSettingsButton from "./system/QuickSettingsButton";
 
 function SystemDock() {
     return (
         <div
             className="
                 absolute
+                right-4
                 bottom-4
-                right-6
+
                 flex
-                items-center
-                gap-3
-                pointer-events-auto
+                items-end
+                gap-4
+
+                pointer-events-none
+            
             "
         >
-            <Clock />
+            <SystemRailPanel />
+
+
+            <SystemRail>
+                <ClockWidget />
+
+                <SystemDivider />
+
+                <NotificationButton />
+                <WifiButton />
+                <VolumeButton />
+                <BatteryButton />
+
+                <SystemDivider />
+
+                <QuickSettingsButton />
+            </SystemRail>
         </div>
     );
 }
 
 export default SystemDock;
+
+

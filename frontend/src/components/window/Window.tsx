@@ -110,6 +110,7 @@ function Window({ window, children }: WindowProps) {
                 onMinimize={() => minimizeWindow(id)}
                 onMaximize={() => toggleMaximize(id)}
                 onMouseDown={handleMouseDown}
+                onDoubleClick={() => toggleMaximize(id)}
             />
             <WindowContent>{children}</WindowContent>
             {resizeDirections.map((direction) => (

@@ -25,14 +25,14 @@ function WindowResizeHandle({
     onMouseDown,
 }: Props) {
     const positionClasses = {
-        top: "top-0 left-2 right-2 h-2 cursor-ns-resize",
-        bottom: "bottom-0 left-2 right-2 h-2 cursor-ns-resize",
-        left: "left-0 top-2 bottom-2 w-2 cursor-ew-resize",
-        right: "right-0 top-2 bottom-2 w-2 cursor-ew-resize",
-        "top-left": "top-0 left-0 h-3 w-3 cursor-nwse-resize",
-        "top-right": "top-0 right-0 h-3 w-3 cursor-nesw-resize",
-        "bottom-left": "bottom-0 left-0 h-3 w-3 cursor-nesw-resize",
-        "bottom-right": "bottom-0 right-0 h-3 w-3 cursor-nwse-resize",
+        top: "top-0 left-2 right-2 h-3 cursor-ns-resize",
+        bottom: "bottom-0 left-2 right-2 h-3 cursor-ns-resize",
+        left: "left-0 top-2 bottom-2 w-3 cursor-ew-resize",
+        right: "right-0 top-2 bottom-2 w-3 cursor-ew-resize",
+        "top-left": "top-0 left-0 h-4 w-4 cursor-nwse-resize",
+        "top-right": "top-0 right-0 h-4 w-4 cursor-nesw-resize",
+        "bottom-left": "bottom-0 left-0 h-4 w-4 cursor-nesw-resize",
+        "bottom-right": "bottom-0 right-0 h-4 w-4 cursor-nwse-resize",
     } as const;
 
     return (
