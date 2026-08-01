@@ -1,3 +1,4 @@
+
 function AboutPage() {
     return (
         <>
@@ -13,4 +14,5 @@ function AboutPage() {
 }
 
 export default AboutPage;
+
 

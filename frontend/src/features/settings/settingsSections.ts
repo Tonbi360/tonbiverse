@@ -16,6 +16,11 @@ export const SETTINGS_SECTIONS: Array<{
         icon: "🖥️",
     },
     {
+        id: "dock",
+        title: "Dock",
+        icon: "📌",
+    },
+    {
         id: "system",
         title: "System",
         icon: "⚙️",

@@ -6,30 +6,37 @@ import BatteryPanel from "./panels/BatteryPanel";
 import NotificationPanel from "./panels/NotificationPanel";
 import QuickSettingsPanel from "./panels/QuickSettingsPanel";
 
+const panelStyles =
+    "bg-zinc-900 border border-white/10 rounded-2xl shadow-2xl text-white w-72 max-h-96 overflow-y-auto";
+
 function SystemRailPanel() {
     const openPanel = useSystemRailStore(
         (state) => state.openPanel
     );
 
+    let content = null;
+
     switch (openPanel) {
         case "network":
-            return <NetworkPanel />;
-
+            content = <NetworkPanel />;
+            break;
         case "volume":
-            return <VolumePanel />;
-
+            content = <VolumePanel />;
+            break;
         case "battery":
-            return <BatteryPanel />;
-
+            content = <BatteryPanel />;
+            break;
         case "notifications":
-            return <NotificationPanel />;
-
+            content = <NotificationPanel />;
+            break;
         case "settings":
-            return <QuickSettingsPanel />;
-
+            content = <QuickSettingsPanel />;
+            break;
         default:
             return null;
     }
+
+    return <div className={panelStyles}>{content}</div>;
 }
 
 export default SystemRailPanel;

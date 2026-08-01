@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { ui } from "../../utils/theme";
 
 type Props = {
   children: ReactNode;
@@ -6,7 +7,7 @@ type Props = {
 
 function WindowContent({ children }: Props) {
   return (
-    <div className="min-h-0 flex-1 overflow-auto bg-zinc-900 p-6 text-white">
+    <div className={ui.windowContent}>
       {children}
     </div>
   );

@@ -42,14 +42,17 @@ function SnapPreview() {
 
     return (
         <div
-            style={style}
+            style={{
+                ...style,
+                borderColor: "var(--accent)",
+                backgroundColor:
+                    "color-mix(in srgb, var(--accent) 20%, transparent)",
+            }}
             className="
                 absolute
                 pointer-events-none
                 rounded-xl
                 border-2
-                border-blue-400
-                bg-blue-400/20
                 transition-all
                 duration-150
                 z-[999]

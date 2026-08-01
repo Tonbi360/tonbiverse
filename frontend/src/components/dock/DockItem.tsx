@@ -1,4 +1,5 @@
 import { useWindowStore } from "../../state/windowStore";
+import { useDockStore } from "../../state/dockStore";
 
 type Props = {
     id: string;
@@ -8,6 +9,10 @@ type Props = {
 };
 
 function DockItem({ id, icon, active, minimized }: Props) {
+    const iconSize = useDockStore(
+        (state) => state.iconSize
+    );
+
     const focusWindow = useWindowStore(
         (state) => state.focusWindow
     );
@@ -35,11 +40,13 @@ function DockItem({ id, icon, active, minimized }: Props) {
     return (
         <button
             onClick={handleClick}
+            style={{
+                width: iconSize,
+                height: iconSize,
+            }}
             className={[
                 "relative",
                 "flex",
-                "h-14",
-                "w-14",
                 "items-center",
                 "justify-center",
                 "rounded-2xl",
@@ -48,15 +55,22 @@ function DockItem({ id, icon, active, minimized }: Props) {
                 "text-white",
                 "transition-all",
                 "duration-200",
-                active ? "scale-110 bg-white/20" : "bg-zinc-800/80",
+                active ? "scale-110 bg-zinc-700" : "bg-zinc-800",
                 minimized ? "opacity-50" : "",
                 "hover:scale-110",
             ].join(" ")}
         >
-            <span className="text-2xl">{icon ?? "•"}</span>
+            <span
+                style={{
+                    fontSize: iconSize * 0.45,
+                }}
+            >{icon ?? "•"}</span>
 
             {active ? (
-                <span className="absolute -bottom-1 h-1 w-6 rounded-full bg-blue-400" />
+                <span
+                    className="absolute -bottom-1 h-1 w-6 rounded-full"
+                    style={{ backgroundColor: "var(--accent)" }}
+                />
             ) : null}
         </button>
     );

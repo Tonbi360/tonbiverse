@@ -2,6 +2,7 @@ import type { Application } from "./types";
 import Gallery from "./gallery/Gallery";
 import Projects from "./projects/Projects";
 import Stories from "./stories/Stories";
+import SettingsContent from "../../features/settings/SettingsContent";
 
 export const applications: Record<string, Application> = {
 
@@ -50,6 +51,23 @@ export const applications: Record<string, Application> = {
         },
 
         component:Stories
+    },
+
+
+    settings:{
+        id:"settings",
+        name:"Settings",
+        icon:"⚙️",
+
+        desktop:false,
+        taskbar:false,
+
+        defaultSize:{
+            width:900,
+            height:600
+        },
+
+        component:SettingsContent
     }
 
 };

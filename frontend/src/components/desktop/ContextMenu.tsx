@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useContextMenuStore } from "../../state/contextMenuStore";
 import { useWindowStore } from "../../state/windowStore";
+import { ui } from "../../utils/theme";
 
 
 type MenuItem = {
@@ -96,7 +97,7 @@ function ContextMenu() {
         <div
             data-context-menu
             role="menu"
-            className="fixed z-[1000] min-w-44 rounded-lg border border-white/20 bg-slate-900/90 p-2 shadow-2xl backdrop-blur"
+            className={`fixed z-[1000] min-w-44 rounded-lg p-2 ${ui.panel}`}
             style={{
                 left: x,
                 top: y,
@@ -107,7 +108,7 @@ function ContextMenu() {
                 <button
                     key={item.label}
                     type="button"
-                    className="flex w-full items-center rounded-md px-3 py-2 text-left text-sm text-slate-100 transition hover:bg-white/10"
+                    className={`flex w-full items-center text-left text-sm ${ui.button}`}
                     onClick={() => {
                         item.action?.();
                         closeMenu();

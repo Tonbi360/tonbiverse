@@ -2,6 +2,7 @@
 import WindowContent from "./WindowContent";
 import { useWindowStore, type OpenWindow } from "../../state/windowStore";
 import { useInteractionStore } from "../../state/interactionStore";
+import { ui } from "../../utils/theme";
 import WindowResizeHandle, { type ResizeDirection } from "./WindowResizeHandle";
 import type { ReactNode, MouseEvent as ReactMouseEvent } from "react";
 
@@ -89,20 +90,9 @@ function Window({ window, children }: WindowProps) {
                 width,
                 height,
                 zIndex,
+                ...(maximized ? { borderColor: "var(--accent)" } : {}),
             }}
-            className={[
-                "absolute",
-                "flex",
-                "flex-col",
-                "overflow-hidden",
-                "rounded-xl",
-                "border",
-                "border-white/10",
-                "bg-zinc-900",
-                "shadow-2xl",
-                "select-none",
-                maximized ? "border-blue-300" : "",
-            ].join(" ")}
+            className={ui.window}
         >
             <WindowHeader
                 title={title}

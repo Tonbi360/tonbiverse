@@ -41,6 +41,10 @@ function DesktopIcon({
         (state) => state.selectIcon
     );
 
+    const iconSize = useDesktopStore(
+        (state) => state.iconSize
+    );
+
     const selected = selectedIcon === id;
 
     return (
@@ -72,10 +76,19 @@ function DesktopIcon({
                 selectIcon(id);
             }}
             onDoubleClick={onOpen}
+            style={
+                selected
+                    ? {
+                          backgroundColor:
+                              "color-mix(in srgb, var(--accent) 30%, transparent)",
+                          boxShadow:
+                              "0 0 0 1px var(--accent)",
+                      }
+                    : undefined
+            }
             className={`
 
                 flex
-                w-24
                 flex-col
                 items-center
                 gap-2
@@ -84,13 +97,23 @@ function DesktopIcon({
                 transition
 
                 ${
-                    selected
-                        ? "bg-blue-500/30 ring-1 ring-blue-400"
-                        : "hover:bg-white/10"
+                    iconSize === "small"
+                        ? "w-20"
+                        : iconSize === "large"
+                        ? "w-28"
+                        : "w-24"
                 }
+
+                hover:bg-white/10
             `}
         >
-            <div className="text-5xl">{icon}</div>
+            <div className={
+                iconSize === "small"
+                    ? "text-4xl"
+                    : iconSize === "large"
+                    ? "text-6xl"
+                    : "text-5xl"
+            }>{icon}</div>
 
             <span className="text-center text-sm">
                 {label}

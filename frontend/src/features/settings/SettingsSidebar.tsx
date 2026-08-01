@@ -1,5 +1,6 @@
 import { useSettingsStore } from "./state/settingsStore";
 import { SETTINGS_SECTIONS } from "./settingsSections";
+import { ui } from "../../utils/theme";
 
 function SettingsSidebar() {
     const page = useSettingsStore(
@@ -12,19 +13,19 @@ function SettingsSidebar() {
 
     return (
         <aside
-            className="
+            className={`
                 w-64
                 border-r
-                border-white/10
-                bg-black/20
                 p-4
-            "
+                ${ui.panel}
+            `}
         >
             <h1
                 className="
                     mb-6
                     text-2xl
                     font-bold
+                    text-inherit
                 "
             >
                 Settings
@@ -49,7 +50,7 @@ function SettingsSidebar() {
 
                             ${
                                 page === section.id
-                                    ? "bg-white/15"
+                                    ? "bg-white/20"
                                     : "hover:bg-white/10"
                             }
                         `}
@@ -67,4 +68,3 @@ function SettingsSidebar() {
 }
 
 export default SettingsSidebar;
-

@@ -15,7 +15,7 @@ class ApplicationManager {
   }
 
   getById(id: string) {
-    return this.getAll().find((app: Application) => app.id === id);
+    return applications[id];
   }
 }
 

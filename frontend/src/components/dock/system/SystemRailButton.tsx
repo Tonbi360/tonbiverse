@@ -15,12 +15,11 @@ function SystemRailButton({ children, onClick }: Props) {
                 items-center
                 justify-center
                 rounded-xl
-                bg-black/40
+                bg-zinc-900
                 border
                 border-white/10
-                backdrop-blur-xl
                 transition
-                hover:bg-white/10
+                hover:bg-zinc-700
                 active:scale-95
             "
         >

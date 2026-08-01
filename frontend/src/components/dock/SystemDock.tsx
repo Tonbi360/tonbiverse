@@ -11,21 +11,9 @@ import QuickSettingsButton from "./system/QuickSettingsButton";
 function SystemDock() {
     return (
         <div
-            className="
-                absolute
-                right-4
-                bottom-4
-
-                flex
-                items-end
-                gap-4
-
-                pointer-events-none
-            
-            "
+            className="absolute flex items-end gap-4 pointer-events-none right-4 bottom-4"
         >
             <SystemRailPanel />
-
 
             <SystemRail>
                 <ClockWidget />

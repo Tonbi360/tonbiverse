@@ -1,25 +1,23 @@
-import GalleryApp from "../../features/gallery/Gallery";
-import ProjectsApp from "../../features/projects/Projects";
-import StoriesApp from "../../features/stories/Stories";
+import { applicationManager } from "./ApplicationManager";
 
 type Props = {
-  id: string;
+    id: string;
 };
 
 function ApplicationRenderer({ id }: Props) {
-  switch (id) {
-    case "gallery":
-      return <GalleryApp />;
+    const app = applicationManager.getById(id);
 
-    case "projects":
-      return <ProjectsApp />;
+    if (!app) {
+        return (
+            <div className="flex h-full items-center justify-center text-sm text-slate-400">
+                Application not found.
+            </div>
+        );
+    }
 
-    case "stories":
-      return <StoriesApp />;
+    const Component = app.component;
 
-    default:
-      return <div>Application not found.</div>;
-  }
+    return <Component />;
 }
 
 export default ApplicationRenderer;

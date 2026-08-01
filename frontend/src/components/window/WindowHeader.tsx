@@ -1,5 +1,6 @@
 import WindowControls from "./WindowControls";
 import type { MouseEvent as ReactMouseEvent } from "react";
+import { ui } from "../../utils/theme";
 
 type Props = {
     title: string;
@@ -29,25 +30,14 @@ function WindowHeader({
         <header
             onMouseDown={onMouseDown}
             onDoubleClick={onDoubleClick}
-            className="
-                flex
-                h-10
-                items-center
-                justify-between
-                border-b
-                border-white/10
-                bg-zinc-800
-                px-4
-                select-none
-                cursor-move
-            "
+            className={ui.windowHeader}
         >
             <span
                 className="
                     truncate
                     text-sm
                     font-medium
-                    text-white
+                    text-window
                 "
             >
                 {title}
